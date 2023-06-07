@@ -16,4 +16,22 @@ public class SecondaryPrimaryMapping {
     @ManyToOne
     @JoinColumn(name = "primaryContactId", referencedColumnName = "id")
     private Contact primaryId;
+
+    public Contact getSecondaryId() {
+        return secondaryId;
+    }
+
+    public void setSecondaryId(Contact secondaryId) {
+        this.secondaryId = secondaryId;
+    }
+
+    public Contact getPrimaryId() {
+        return primaryId;
+    }
+
+    public void setPrimaryId(Contact primaryId) {
+        this.primaryId = primaryId;
+    }
+
+    
 }

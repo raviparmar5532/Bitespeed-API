@@ -1,5 +1,6 @@
 package com.bitespeed.api.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,11 +19,11 @@ public class Contact {
     private Date updatedAt;
     private Date deletedAt;
     @OneToMany(mappedBy = "contactId")
-    private List<Email>emails;
+    private List<Email>emails = new ArrayList<>();
     @OneToMany(mappedBy = "contactId")
-    private List<PhoneNumber>phoneNumbers;
+    private List<PhoneNumber>phoneNumbers = new ArrayList<>();
     @OneToMany(mappedBy = "primaryId")
-    private List<SecondaryPrimaryMapping>secondaries;
+    private List<SecondaryPrimaryMapping>secondaries = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -72,6 +73,25 @@ public class Contact {
     public void setDeletedAt(Date deletedAt) {
         this.deletedAt = deletedAt;
     }
+    public List<Email> getEmails() {
+        return emails;
+    }
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
+    }
+    public List<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+    public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+    public List<SecondaryPrimaryMapping> getSecondaries() {
+        return secondaries;
+    }
+    public void setSecondaries(List<SecondaryPrimaryMapping> secondaries) {
+        this.secondaries = secondaries;
+    }
+    
 
     
 }

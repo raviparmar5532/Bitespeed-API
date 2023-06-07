@@ -9,4 +9,17 @@ public class Email {
     @ManyToOne
     @JoinColumn(name = "contactId", referencedColumnName = "id")
     private Contact contactId;
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public Contact getContactId() {
+        return contactId;
+    }
+    public void setContactId(Contact contactId) {
+        this.contactId = contactId;
+    }
+    
 }
