@@ -1,6 +1,7 @@
-package com.bitespeed.api;
+package com.bitespeed.api.models;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -9,7 +10,6 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String phoneNumber;
     private String email;
     private Integer linkedId; // the ID of another Contact linked to this one
@@ -17,6 +17,13 @@ public class Contact {
     private Date createdAt;
     private Date updatedAt;
     private Date deletedAt;
+    @OneToMany(mappedBy = "contactId")
+    private List<Email>emails;
+    @OneToMany(mappedBy = "contactId")
+    private List<PhoneNumber>phoneNumbers;
+    @OneToMany(mappedBy = "primaryId")
+    private List<SecondaryPrimaryMapping>secondaries;
+
     public Integer getId() {
         return id;
     }
