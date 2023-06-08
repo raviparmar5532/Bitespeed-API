@@ -26,7 +26,7 @@ public class IdentifyService {
 
     public ResponseDto identifyService(String email, String phoneNumber) {
         Optional<Email>emailOptional = emailDao.findById(email);
-        Optional<Email>phoneOptional = emailDao.findById(phoneNumber);
+        Optional<PhoneNumber>phoneOptional = phoneNumberDao.findById(phoneNumber);
         //scenario 1: if email and phone both not found
         if(!emailOptional.isPresent() && !phoneOptional.isPresent()) {
             //Creation of contact object
@@ -62,8 +62,25 @@ public class IdentifyService {
             return new ResponseDto(contactEntry);
         }
         //scenario 2: if email or phone any one is found
+        if(emailOptional.isPresent() ^ phoneOptional.isPresent()) {
+            if(emailOptional.isPresent()) {
+                
+            }
+            if(phoneOptional.isPresent()) {
+                
+            }
+        }
+        //scenario 3: if email and phone both are found
         if(emailOptional.isPresent() && phoneOptional.isPresent()) {
-            return new ResponseDto(emailDao.getReferenceById(email).getContactId());
+            Email emailObj = emailOptional.get();
+            PhoneNumber phoneObj = phoneOptional.get();
+            //scenario 3a: if email and phone both maps with same contact id
+            if(emailObj.getContactId().getId() == phoneObj.getContactId().getId()) {
+                Contact contactObj = contactDao.getReferenceById(emailObj.getContactId().getId());
+                return new ResponseDto(contactObj);
+            }
+
+            //scenario 3b: if email and phone both maps with different contact ids
         }
         return new ResponseDto(new Contact());
     }
