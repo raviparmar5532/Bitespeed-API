@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Email {
     @Id
     private String email;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contactId", referencedColumnName = "id")
     private Contact contactId;
     public String getEmail() {
@@ -21,5 +21,5 @@ public class Email {
     public void setContactId(Contact contactId) {
         this.contactId = contactId;
     }
-    
+
 }

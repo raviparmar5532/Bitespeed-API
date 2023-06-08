@@ -1,8 +1,6 @@
 package com.bitespeed.api.dtos;
 
-import java.util.Date;
 import java.util.List;
-
 import com.bitespeed.api.models.Contact;
 
 public class ResponseDto {

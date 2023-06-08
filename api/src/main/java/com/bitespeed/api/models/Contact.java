@@ -18,11 +18,11 @@ public class Contact {
     private Date createdAt;
     private Date updatedAt;
     private Date deletedAt;
-    @OneToMany(mappedBy = "contactId")
+    @OneToMany(mappedBy = "contactId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Email>emails = new ArrayList<>();
-    @OneToMany(mappedBy = "contactId")
+    @OneToMany(mappedBy = "contactId", cascade = CascadeType.ALL)
     private List<PhoneNumber>phoneNumbers = new ArrayList<>();
-    @OneToMany(mappedBy = "primaryId")
+    @OneToMany(mappedBy = "primaryId", cascade = CascadeType.ALL)
     private List<SecondaryPrimaryMapping>secondaries = new ArrayList<>();
 
     public Integer getId() {
@@ -91,7 +91,12 @@ public class Contact {
     public void setSecondaries(List<SecondaryPrimaryMapping> secondaries) {
         this.secondaries = secondaries;
     }
-    
+    public void addEmail(Email email) {
+        this.emails.add(email);
+    }
+    public void addPhoneNumber(PhoneNumber phoneNumber) {
+        this.phoneNumbers.add(phoneNumber);
+    }
 
     
 }
