@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bitespeed.api.dtos.RequestDto;
 import com.bitespeed.api.dtos.ResponseDto;
-import com.bitespeed.api.models.Contact;
 import com.bitespeed.api.services.IdentifyService;
 
 import org.springframework.beans.factory.annotation.Autowired;

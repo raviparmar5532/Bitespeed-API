@@ -26,7 +26,8 @@ public class MyController {
 
     @GetMapping(value="hi")
     public List<String> getMethodName() {
-        return contactDao.findAll().get(0).getEmails().stream().map(e -> e.getEmail()).toList();
+        // return contactDao.findAll().get(0).getEmails().stream().map(e -> e.getEmail()).toList();
+        return contactDao.findAll().get(0).getPhoneNumbers().stream().map(e -> e.getPhoneNumber()).toList();
     }
     
 }
