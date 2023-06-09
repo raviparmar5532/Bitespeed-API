@@ -1,6 +1,7 @@
 package com.bitespeed.api.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class IdentifyService {
     private PhoneNumberDao phoneNumberDao;
 
     public ResponseDto identifyService(String email, String phoneNumber) {
-        Optional<Email>emailOptional = emailDao.findById(email);
-        Optional<PhoneNumber>phoneOptional = phoneNumberDao.findById(phoneNumber);
+        List<Email> emailsList = emailDao.findByEmail(email);
+        List<PhoneNumber> phonesList = phoneNumberDao.findByPhoneNumber(phoneNumber);
         //scenario 1: if email and phone both not found
-        if(!emailOptional.isPresent() && !phoneOptional.isPresent()) {
+        if(emailsList.isEmpty() && phonesList.isEmpty()) {
             //Creation of contact object
             Contact contactEntry = new Contact();
             contactEntry.setEmail(email);
@@ -39,11 +40,13 @@ public class IdentifyService {
             //Creation of email object
             Email emailEntry = new Email();
             emailEntry.setEmail(email);
+            emailEntry = emailDao.save(emailEntry);
             contactEntry.addEmail(emailEntry);
             
             //Creation of phoneNumber object
             PhoneNumber phoneNumberEntry = new PhoneNumber();
             phoneNumberEntry.setPhoneNumber(phoneNumber);
+            phoneNumberEntry = phoneNumberDao.save(phoneNumberEntry);
             contactEntry.addPhoneNumber(phoneNumberEntry);
             
             //Get the id for contact object
@@ -58,10 +61,10 @@ public class IdentifyService {
             return new ResponseDto(contactEntry);
         }
         //scenario 2: if email or phone any one is found
-        if(emailOptional.isPresent() ^ phoneOptional.isPresent()) {
+        if(emailsList.isEmpty() ^ phonesList.isEmpty()) {
 
-            if(emailOptional.isPresent()) {
-                Email emailObj = emailOptional.get();
+            if(!emailsList.isEmpty()) {
+                Email emailObj = emailsList.get(0);
                 Contact primaryContact = emailObj.getContactId();
                 
                 //Creation of contact object
@@ -72,13 +75,11 @@ public class IdentifyService {
                 contactEntry.setLinkPrecedence("Secondary");
                 contactEntry.setCreatedAt(new Date());
                 contactEntry.setUpdatedAt(new Date());
-                
+
                 //Creation of phoneNumber object
                 PhoneNumber phoneNumberEntry = new PhoneNumber();
                 phoneNumberEntry.setPhoneNumber(phoneNumber);
                 primaryContact.addPhoneNumber(phoneNumberEntry);
-
-                primaryContact = contactDao.save(primaryContact);
 
                 phoneNumberEntry.setContactId(primaryContact);
                 phoneNumberDao.save(phoneNumberEntry);
@@ -88,8 +89,8 @@ public class IdentifyService {
 
                 return new ResponseDto(primaryContact);
             }
-            if(phoneOptional.isPresent()) {
-                PhoneNumber phoneNumberObj = phoneOptional.get();
+            if(!phonesList.isEmpty()) {
+                PhoneNumber phoneNumberObj = phonesList.get(0);
                 Contact primaryContact = phoneNumberObj.getContactId();
 
                 //Creation of contact object
@@ -106,8 +107,6 @@ public class IdentifyService {
                 emailEntry.setEmail(email);
                 primaryContact.addEmail(emailEntry);
 
-                primaryContact = contactDao.save(primaryContact);
-
                 emailEntry.setContactId(primaryContact);
                 emailDao.save(emailEntry);
                 
@@ -119,9 +118,9 @@ public class IdentifyService {
             }
         }
         //scenario 3: if email and phone both are found
-        if(emailOptional.isPresent() && phoneOptional.isPresent()) {
-            Email emailObj = emailOptional.get();
-            PhoneNumber phoneObj = phoneOptional.get();
+        if(!emailsList.isEmpty() && !phonesList.isEmpty()) {
+            Email emailObj = emailsList.get(0);
+            PhoneNumber phoneObj = phonesList.get(0);
             //scenario 3a: if email and phone both maps with same contact id
             if(emailObj.getContactId().getId() == phoneObj.getContactId().getId()) {
                 Contact contactObj = contactDao.getReferenceById(emailObj.getContactId().getId());

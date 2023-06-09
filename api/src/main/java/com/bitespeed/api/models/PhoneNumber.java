@@ -5,10 +5,13 @@ import jakarta.persistence.*;
 @Entity
 public class PhoneNumber {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "contactId", referencedColumnName = "id")
     private Contact contactId;
+    
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -20,6 +23,12 @@ public class PhoneNumber {
     }
     public void setContactId(Contact contactId) {
         this.contactId = contactId;
+    }
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
     }
     
 }
