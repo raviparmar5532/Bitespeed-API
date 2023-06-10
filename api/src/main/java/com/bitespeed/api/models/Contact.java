@@ -4,7 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.*;
+import org.hibernate.annotations.SourceType;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Contact {
@@ -15,7 +24,9 @@ public class Contact {
     private String email;
     private Integer linkedId; // the ID of another Contact linked to this one
     private String linkPrecedence; // "secondary"|"primary" // "primary" if it's the first Contact in the link
+    @UpdateTimestamp(source = SourceType.DB)
     private Date createdAt;
+    @UpdateTimestamp(source = SourceType.DB)
     private Date updatedAt;
     private Date deletedAt;
     @OneToMany(mappedBy = "contactId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

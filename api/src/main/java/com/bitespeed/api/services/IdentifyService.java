@@ -1,8 +1,6 @@
 package com.bitespeed.api.services;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +32,8 @@ public class IdentifyService {
             contactEntry.setEmail(email);
             contactEntry.setPhoneNumber(phoneNumber);
             contactEntry.setLinkPrecedence("primary");
-            contactEntry.setCreatedAt(new Date());
-            contactEntry.setUpdatedAt(new Date());
+            // contactEntry.setCreatedAt(new Date());
+            // contactEntry.setUpdatedAt(new Date());
 
             //Creation of email object
             Email emailEntry = new Email();
@@ -73,8 +71,8 @@ public class IdentifyService {
                 contactEntry.setPhoneNumber(phoneNumber);
                 contactEntry.setLinkedId(primaryContact.getId());
                 contactEntry.setLinkPrecedence("Secondary");
-                contactEntry.setCreatedAt(new Date());
-                contactEntry.setUpdatedAt(new Date());
+                // contactEntry.setCreatedAt(new Date());
+                // contactEntry.setUpdatedAt(new Date());
 
                 //Creation of phoneNumber object
                 PhoneNumber phoneNumberEntry = new PhoneNumber();
@@ -99,8 +97,8 @@ public class IdentifyService {
                 contactEntry.setPhoneNumber(phoneNumber);
                 contactEntry.setLinkedId(primaryContact.getId());
                 contactEntry.setLinkPrecedence("Secondary");
-                contactEntry.setCreatedAt(new Date());
-                contactEntry.setUpdatedAt(new Date());
+                // contactEntry.setCreatedAt(new Date());
+                // contactEntry.setUpdatedAt(new Date());
                 
                 //Creation of email object
                 Email emailEntry = new Email();
