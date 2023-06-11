@@ -1,9 +1,11 @@
 package com.bitespeed.api.models;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,6 +19,7 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Contact {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -24,18 +27,15 @@ public class Contact {
     private String email;
     private Integer linkedId; // the ID of another Contact linked to this one
     private String linkPrecedence; // "secondary"|"primary" // "primary" if it's the first Contact in the link
+    @CreationTimestamp(source = SourceType.DB)
+    private Instant createdAt;
     @UpdateTimestamp(source = SourceType.DB)
-    private Date createdAt;
-    @UpdateTimestamp(source = SourceType.DB)
-    private Date updatedAt;
+    private Instant updatedAt;
     private Date deletedAt;
-    @OneToMany(mappedBy = "contactId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "contactId", cascade = CascadeType.ALL)
     private List<Email>emails = new ArrayList<>();
     @OneToMany(mappedBy = "contactId", cascade = CascadeType.ALL)
     private List<PhoneNumber>phoneNumbers = new ArrayList<>();
-    @OneToMany(mappedBy = "primaryId", cascade = CascadeType.ALL)
-    private List<SecondaryPrimaryMapping>secondaries = new ArrayList<>();
-    
     public Integer getId() {
         return id;
     }
@@ -66,16 +66,16 @@ public class Contact {
     public void setLinkPrecedence(String linkPrecedence) {
         this.linkPrecedence = linkPrecedence;
     }
-    public Date getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
-    public Date getUpdatedAt() {
+    public Instant getUpdatedAt() {
         return updatedAt;
     }
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
     public Date getDeletedAt() {
@@ -96,18 +96,17 @@ public class Contact {
     public void setPhoneNumbers(List<PhoneNumber> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
-    public List<SecondaryPrimaryMapping> getSecondaries() {
-        return secondaries;
-    }
-    public void setSecondaries(List<SecondaryPrimaryMapping> secondaries) {
-        this.secondaries = secondaries;
-    }
+    
     public void addEmail(Email email) {
         this.emails.add(email);
     }
     public void addPhoneNumber(PhoneNumber phoneNumber) {
         this.phoneNumbers.add(phoneNumber);
-    }
-
+    }    
     
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return ""+this.getId();
+    }
 }

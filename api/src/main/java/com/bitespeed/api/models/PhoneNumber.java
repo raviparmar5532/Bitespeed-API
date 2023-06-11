@@ -1,6 +1,12 @@
 package com.bitespeed.api.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class PhoneNumber {
@@ -8,7 +14,7 @@ public class PhoneNumber {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String phoneNumber;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "contactId", referencedColumnName = "id")
     private Contact contactId;
     
@@ -29,6 +35,11 @@ public class PhoneNumber {
     }
     public void setId(Integer id) {
         this.id = id;
+    }
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.getPhoneNumber();
     }
     
 }
