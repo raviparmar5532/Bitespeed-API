@@ -35,7 +35,7 @@ public class Contact {
     private List<PhoneNumber>phoneNumbers = new ArrayList<>();
     @OneToMany(mappedBy = "primaryId", cascade = CascadeType.ALL)
     private List<SecondaryPrimaryMapping>secondaries = new ArrayList<>();
-
+    
     public Integer getId() {
         return id;
     }
