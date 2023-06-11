@@ -2,6 +2,7 @@ package com.bitespeed.api.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class IdentifyService {
     private PhoneNumberDao phoneNumberDao;
 
     private List<Integer> fetchSecondaries(Contact contact) {
-        List<Integer>secondaries = contactDao.findByLinkedId(contact.getId()).stream().map(c -> c.getId()).toList();
+        List<Integer>secondaries = contactDao.findByLinkedId(contact.getId()).stream().map(c -> c.getId()).collect(Collectors.toList());
         return secondaries;
     }
 
