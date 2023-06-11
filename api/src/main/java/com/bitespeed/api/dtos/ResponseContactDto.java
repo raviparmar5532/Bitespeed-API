@@ -1,6 +1,7 @@
 package com.bitespeed.api.dtos;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.bitespeed.api.models.Contact;
 
@@ -13,8 +14,8 @@ public class ResponseContactDto implements ResponseDto {
     
     public ResponseContactDto(Contact contact, List<Integer>secondaryContactIds) {
         primaryContatctId = contact.getId();
-        this.phoneNumbers = contact.getPhoneNumbers().stream().map(p -> p.getPhoneNumber()).toList();
-        this.emails = contact.getEmails().stream().map(e -> e.getEmail()).toList();
+        this.phoneNumbers = contact.getPhoneNumbers().stream().map(p -> p.getPhoneNumber()).collect(Collectors.toList());
+        this.emails = contact.getEmails().stream().map(e -> e.getEmail()).collect(Collectors.toList());
         this.secondaryContactIds = secondaryContactIds;
     }
     
