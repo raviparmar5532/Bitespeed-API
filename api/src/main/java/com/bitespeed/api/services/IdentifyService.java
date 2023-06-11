@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import com.bitespeed.api.daos.ContactDao;
 import com.bitespeed.api.daos.EmailDao;
@@ -47,7 +46,7 @@ public class IdentifyService {
             Contact contactEntry = new Contact();
             contactEntry.setEmail(email);
             contactEntry.setPhoneNumber(phoneNumber);
-            contactEntry.setLinkPrecedence("primary");
+            contactEntry.setLinkPrecedence("Primary");
 
             //Creation of email object
             Email emailEntry = new Email();

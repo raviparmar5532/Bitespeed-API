@@ -38,7 +38,6 @@ public class Email {
     }
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return this.getEmail();
     }
 
