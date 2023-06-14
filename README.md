@@ -5,6 +5,6 @@
 ## Sample Request:
 
 `{
-	"email": "xyz" or null,
-	"phoneNumber": 123 or "123" or null
+	"email": "xyz"
+	"phoneNumber": "123"
 }`
