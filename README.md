@@ -5,6 +5,6 @@
 ## Sample Request:
 
 `{
-	"email": "xyz"
+	"email": "xyz",
 	"phoneNumber": "123"
 }`
