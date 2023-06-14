@@ -7,4 +7,4 @@
 `{
 	"email": "xyz" or null,
 	"phoneNumber": 123 or "123" or null
-}
+}`
