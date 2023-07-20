@@ -38,8 +38,8 @@ If an incoming request has either of `phoneNumber` or `email` common to an exist
 ******************************Identify request:******************************
 ```jsx
 {
-"email":"mcfly@hillvalley.edu",
-"phoneNumber":"123456"
+  "email":"mcfly@hillvalley.edu",
+  "phoneNumber":"123456"
 }
 ```
 
